@@ -259,7 +259,8 @@ Signals
 Templates
 ~~~~~~~~~
 
-* ...
+* The ``technical_500.html`` debug page now also highlights the columns in the 
+  line in which an error occured.
 
 Tests
 ~~~~~

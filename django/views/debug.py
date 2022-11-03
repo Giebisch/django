@@ -1,6 +1,7 @@
 import functools
 import re
 import sys
+import traceback
 import types
 import warnings
 from pathlib import Path
@@ -544,6 +545,9 @@ class ExceptionReporter:
                 pre_context = []
                 context_line = "<source code not available>"
                 post_context = []
+            spaces = "\n" + " " * (len(context_line) - len(context_line.lstrip()) \
+                + len(str(lineno + 1)) - 2)
+            colno = spaces + traceback.format_tb(tb, limit=1)[0].split("\n")[-2]
             yield {
                 "exc_cause": exc_cause,
                 "exc_cause_explicit": exc_cause_explicit,
@@ -560,6 +564,7 @@ class ExceptionReporter:
                 "context_line": context_line,
                 "post_context": post_context,
                 "pre_context_lineno": pre_context_lineno + 1,
+                "colno": colno if "^" in colno else "",
             }
             tb = tb.tb_next
 
