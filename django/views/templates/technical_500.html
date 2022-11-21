@@ -100,7 +100,7 @@
 <div id="summary">
   <h1>{% if exception_type %}{{ exception_type }}{% else %}Report{% endif %}
       {% if request %} at {{ request.path_info }}{% endif %}</h1>
-  <pre class="exception_value">{% if exception_value %}{{ exception_value|force_escape }}{% else %}No exception message supplied{% endif %}</pre>
+  <pre class="exception_value">{% if exception_value %}{{ exception_value|force_escape }}{% if exception_notes %}{{ exception_notes }}{% endif %}{% else %}No exception message supplied{% endif %}</pre>
   <table class="meta">
 {% if request %}
     <tr>

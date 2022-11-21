@@ -659,6 +659,26 @@ class ExceptionReporterTests(SimpleTestCase):
             text,
         )
 
+    def test_exception_with_notes(self):
+        request = self.rf.get("/test_view/")
+        try:
+            try:
+                raise RuntimeError("Oops")
+            except Exception as err:
+                err.add_note("First Note")
+                err.add_note("Second Note")
+                raise err
+        except Exception:
+            exc_type, exc_value, tb = sys.exc_info()
+
+        reporter = ExceptionReporter(request, exc_type, exc_value, tb)
+        html = reporter.get_traceback_html()
+        self.assertIn(
+            '<pre class="exception_value">Oops\n'
+            'First Note\nSecond Note</pre>', 
+            html,
+        )
+
     def test_mid_stack_exception_without_traceback(self):
         try:
             try:

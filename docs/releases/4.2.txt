@@ -155,7 +155,7 @@ Email
 Error Reporting
 ~~~~~~~~~~~~~~~
 
-* ...
+* The debug page now shows Python 3.11's notes for exceptions if available
 
 File Storage
 ~~~~~~~~~~~~

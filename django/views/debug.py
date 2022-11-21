@@ -396,6 +396,8 @@ class ExceptionReporter:
             c["exception_type"] = self.exc_type.__name__
         if self.exc_value:
             c["exception_value"] = str(self.exc_value)
+            if hasattr(self.exc_value, "__notes__"):
+                c["exception_notes"] = "\n" + "\n".join(self.exc_value.__notes__)
         if frames:
             c["lastframe"] = frames[-1]
         return c
